@@ -14,7 +14,7 @@ from oss.aws_oss_client import AwsOssClient
 from utils.md5_utils import calculate_md5_file
 
 # 只同步最新的 N 条（增量优先）。设为 0 或负数则恢复全量扫描。
-LATEST_N = 5
+LATEST_N = 10
 
 SYNC_CONFIG = {
     'GARMIN_AUTH_DOMAIN': '',
