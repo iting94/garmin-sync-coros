@@ -100,17 +100,22 @@ class GarminClient:
   #        return all_activities
   #     start += limit
 
-  ## 获取所有运动
+  ## 获取所有运动（newestNum>0 时只翻到够数就停，实现增量优先）
   def getAllActivities(self): 
     all_activities = []
     start = 0
+    limit = 100
+    if 0 < self.newestNum < limit:
+      limit = self.newestNum
     while(True):
-      activities = self.getActivities(start=start, limit=100)
+      activities = self.getActivities(start=start, limit=limit)
       if len(activities) > 0:
          all_activities.extend(activities)
       else:
          return all_activities
-      start += 100
+      if 0 < self.newestNum <= len(all_activities):
+         return all_activities[:self.newestNum]
+      start += limit
 
   ## 下载原始格式的运动
   def downloadFitActivity(self, activity):
